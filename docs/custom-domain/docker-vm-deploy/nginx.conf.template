@@ -23,15 +23,15 @@ http {
     #gzip  on;
 
     include /etc/nginx/conf.d/*.conf;
-	
-	resolver 8.8.8.8 valid=30s;
-	set $dn "${BACKEND_HOST}:443";
 
 	server {
 		listen              443 ssl; # 'ssl' parameter tells NGINX to decrypt the traffic
 		server_name         ${FRONTEND_HOST};
 		ssl_certificate     ${CERT_LOCATION}; # The certificate file
 		ssl_certificate_key ${PRV_LOCATION}; # The private key file
+		
+		resolver 8.8.8.8 valid=30s;
+		set $dn "${BACKEND_HOST}:443";
 		
 		location / {
 			client_max_body_size    1000G;
